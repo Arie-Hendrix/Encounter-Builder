@@ -1,0 +1,60 @@
+-- Table Creation Script
+
+drop table if exists encounter_monster;
+drop table if exists encounter_character;
+drop table if exists monster;
+drop table if exists character_table;
+drop table if exists player;
+drop table if exists encounter;
+
+create table player (
+	player_id int unsigned not null auto_increment,
+	first_name varchar(30) not null,
+	last_name varchar(40) not null,
+	primary key (player_id)
+);
+
+create table monster (
+	monster_id int unsigned not null auto_increment,
+	name varchar(30) not null,
+	type enum (
+	'ABERRATION', 'BEAST', 'CELESTIAL', 'CONSTRUCT', 
+	'DRAGON', 'ELEMENTAL', 'FEY', 'FEIND', 'GIANT', 
+	'HUMANOID', 'MONSTROSITY', 'OOZE', 'PLANT', 'UNDEAD') not null,
+	challenge_rating decimal(5,3) not null,
+	armor_class int unsigned not null,
+	hit_points int unsigned not null,
+	primary key (monster_id)
+);
+
+create table character_table (
+	character_id int unsigned not null auto_increment,
+	player_id int unsigned not null,
+	name varchar(40) not null,
+	type enum('HUMANOID') not null,
+	level int unsigned not null,
+	armor_class int unsigned not null,
+	hit_points int unsigned not null,
+	primary key (character_id),
+	foreign key (player_id) references player (player_id)
+);
+
+create table encounter (
+	encounter_id int unsigned not null auto_increment,
+	encounter_name varchar(60) not null,
+	primary key (encounter_id)
+);
+
+create table encounter_monster (
+	encounter_id int unsigned not null,
+	monster_id int unsigned not null,
+	foreign key (encounter_id) references encounter (encounter_id) on delete cascade,
+	foreign key (monster_id) references monster (monster_id) on delete cascade
+);
+
+create table encounter_character (
+	encounter_id int unsigned not null,
+	character_id int unsigned not null,
+	foreign key (encounter_id) references encounter (encounter_id) on delete cascade,
+	foreign key (character_id) references character_table (character_id) on delete cascade
+);

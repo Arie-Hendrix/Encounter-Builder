@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    password: encounters
+    username: encounters
+    url: jdbc:mysql://localhost:3306/encounters
+
+
+logging:
+  level:
+    root: warn
+    '[com.encounter]': debug
+    
