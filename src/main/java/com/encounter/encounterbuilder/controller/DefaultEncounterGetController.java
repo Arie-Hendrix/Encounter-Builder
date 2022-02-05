@@ -18,17 +18,9 @@ public class DefaultEncounterGetController implements EncounterGetController {
   @Autowired
   private EncounterGetService encounterService;
 
-  @GetMapping
-  public List<Encounter> getEncounters(){
-    log.info("");
-    
-    return encounterService.fetchEncounters();
-        //encounterService.fetchEncounter(0);
-  }
-
   @Override
   public List<Encounter> fetchEncounters() {
-    // TODO Auto-generated method stub
-    return null;
+    
+    return encounterService.fetchEncounters();
   }
 }

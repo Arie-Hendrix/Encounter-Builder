@@ -16,29 +16,29 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 @Validated
 @RequestMapping("/encounters")
 public interface EncounterGetController {
-//  @Operation(
-//      summary = "Returns the encounter",
-//      description = "Returns the specified encounter number/name",
-//      responses = {
-//          @ApiResponse(responseCode = "200", 
-//              description = "The encounter list was returned sucessfully", 
-//              content = @Content(mediaType = "application/json", schema = @Schema(implementation = Encounter.class))),
-//          @ApiResponse(responseCode = "400", 
-//              description = "The request parameters are invalid", 
-//               content = @Content(mediaType = "application/json")),
-//          @ApiResponse(responseCode = "404", 
-//              description = "No encounters found with input criteria", 
-//              content = @Content(mediaType = "application/json")),
-//          @ApiResponse(responseCode = "500", 
-//              description = "An unexpected error has occurred",
-//              content = @Content(mediaType = "application/json"))
-//      },
-//      parameters = {
-//          @Parameter(name = "id", allowEmptyValue = false,
-//              required = false, description = "Number of the encounter"),
-//          @Parameter(name = "name", allowEmptyValue = false,
-//              required = false, description = "Trim package of the Jeep")
-//      })
+  @Operation(
+      summary = "Returns the encounter",
+      description = "Returns the specified encounter number/name",
+      responses = {
+          @ApiResponse(responseCode = "200", 
+              description = "The encounter list was returned sucessfully", 
+              content = @Content(mediaType = "application/json", schema = @Schema(implementation = Encounter.class))),
+          @ApiResponse(responseCode = "400", 
+              description = "The request parameters are invalid", 
+               content = @Content(mediaType = "application/json")),
+          @ApiResponse(responseCode = "404", 
+              description = "No encounters found with input criteria", 
+              content = @Content(mediaType = "application/json")),
+          @ApiResponse(responseCode = "500", 
+              description = "An unexpected error has occurred",
+              content = @Content(mediaType = "application/json"))
+      },
+      parameters = {
+          @Parameter(name = "id", allowEmptyValue = false,
+              required = false, description = "Number of the encounter"),
+          @Parameter(name = "name", allowEmptyValue = false,
+              required = false, description = "Trim package of the Jeep")
+      })
   
   @GetMapping
   @ResponseStatus(code = HttpStatus.OK)
