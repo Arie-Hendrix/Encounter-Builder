@@ -8,6 +8,7 @@ import lombok.Data;
 public class Character {
 
   private Long characterId;
+  private Long playerId;
   private String characterName;
   @Builder.Default
   private CreatureType type = CreatureType.HUMANOID;

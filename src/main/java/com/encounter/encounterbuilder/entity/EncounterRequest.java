@@ -8,13 +8,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Data
-public class EncounterBuildRequest {
+public class EncounterRequest {
   
-  // private Long encounterPk;
-  private List<@NotNull @Length(max = 30) @Pattern(regexp = "[A-Z0-9_]*") String> monsters;
-  private List<@NotNull @Length(max = 30) @Pattern(regexp = "[A-Z_]*") String> characters;
-  @NotNull
-  @Length(max = 40)
-  @Pattern(regexp = "[A-Z0-9_]*")
+  private List<Monster> monsters;
+  private List<Character> characters;
   private String encounterName;  
+  
 }
+
+
+//private List<@NotNull @Length(max = 30) @Pattern(regexp = "[A-Z0-9_]*") String> monsters;
+//private List<@NotNull @Length(max = 30) @Pattern(regexp = "[A-Z_]*") String> characters;

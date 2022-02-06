@@ -11,7 +11,6 @@ import com.encounter.encounterbuilder.service.EncounterGetService;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/encounters")
 @Slf4j
 public class DefaultEncounterGetController implements EncounterGetController {
   
@@ -19,8 +18,8 @@ public class DefaultEncounterGetController implements EncounterGetController {
   private EncounterGetService encounterService;
 
   @Override
-  public List<Encounter> fetchEncounters() {
+  public List<Encounter> fetchEncounters(String name) {
     
-    return encounterService.fetchEncounters();
+    return encounterService.fetchEncounter(name);
   }
 }

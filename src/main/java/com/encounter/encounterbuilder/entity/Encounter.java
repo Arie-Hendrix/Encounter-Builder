@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Encounter implements Comparable<Encounter>{
 
   private Long encounterPK;

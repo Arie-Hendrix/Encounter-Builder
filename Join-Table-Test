@@ -1,1 +1,11 @@
-insert into encounter_monster (encounter_id, monster_id) values ('1', '1');
+-- insert into encounter_monster (encounter_id, monster_id) values ('1', '1');
+-- insert into encounter (encounter_id, encounter_name) values ('1', 'Test Encounter');
+-- select * from encounter e ;
+-- insert into encounter_character (encounter_id, character_id) values ('1', '1');
+-- select * from encounter_monster em ;
+-- select * from encounter_character ec ;
+-- select * from encounter e ;
+
+select * from monster m inner join encounter_monster em where m.monster_id = em.monster_id and em.encounter_id = '1';
+
+select * from character_table ct inner join encounter_character ec where ct.character_id = ec.character_id and ec.encounter_id = '1';

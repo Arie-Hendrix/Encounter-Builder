@@ -34,14 +34,16 @@ public interface EncounterGetController {
               content = @Content(mediaType = "application/json"))
       },
       parameters = {
-          @Parameter(name = "id", allowEmptyValue = false,
+          @Parameter(name = "id", allowEmptyValue = true,
               required = false, description = "Number of the encounter"),
-          @Parameter(name = "name", allowEmptyValue = false,
-              required = false, description = "Trim package of the Jeep")
+          @Parameter(name = "name", allowEmptyValue = true,
+              required = false, description = "Name of the encounter")
       })
   
   @GetMapping
   @ResponseStatus(code = HttpStatus.OK)
-  List<Encounter> fetchEncounters();
+  List<Encounter> fetchEncounters(String name);
   
+  // List<Encounter> fetchEncounters();
+
 }

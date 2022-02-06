@@ -7,6 +7,6 @@ public interface EncounterGetService {
   
   List<Encounter> fetchEncounter(String encounterName);
   // Encounter fetchEncounter(long encounterPK);
-  List<Encounter> fetchEncounters();
+  // List<Encounter> fetchEncounters();
 
 }

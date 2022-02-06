@@ -23,63 +23,53 @@ public class DefaultEncounterGetDao implements EncounterGetDao {
   @Autowired
   private NamedParameterJdbcTemplate jdbcTemplate;
 
+  
+  @SuppressWarnings("unchecked")
   @Override
-  public List<Encounter> displayEncounter(long encounterPk) {
-    log.debug("DAO: encounter= {}", encounterPk);
+  public List<Encounter> getEncounter(String encounterName) {
+    log.debug("DAO: encounter name ={}", encounterName);
+    
+    Encounter encounter = new Encounter();
+    String sql = "SELECT * " +
+        "FROM encounter " +
+        "WHERE encounter_name = :encounter_name";
+    
+    Map<String, Object> params = new HashMap<>();
+    params.put("encounter_name", encounterName.toString());
+    
+   jdbcTemplate.query(sql, params, new RowMapper<>() {
+      
+      public Encounter mapRow(ResultSet rs, int rowNum) throws SQLException {
+        return Encounter.builder()
+            .encounterName(rs.getString("encounter_name"))
+            .encounterPK(rs.getLong("encounter_id"))
+            .build();
+      }});
+       
+     encounter.setMonsters(getMonsters(encounter.getEncounterPK()));
+     encounter.setCharacters(getPlayerCharacters(encounter.getEncounterPK()));
+    //   getMonsters(encounter.getEncounterPK());
+    //   getPlayerCharacters(encounter.getEncounterPK());
    
-    String sql = ""
-        + "SELECT * "
-        + "FROM encounters "
-        + "WHERE encounter_id = :encounter_id";
-    
-    Map<String, Object> params = new HashMap<>();
-    params.put("encounter_id", encounterPk);
-    return jdbcTemplate.query(sql, params, new RowMapper<>() {
-      
-      @Override
-      public Encounter mapRow(ResultSet rs, int rowNum) throws SQLException {
-//        return Encounter.builder()
-//            .characters(null)
-//            .build();
-        return null;
-      }});
-  }
+     return (List<Encounter>) encounter;
+    }
+  
+  
 
   @Override
-  public List<Encounter> displayEncounter(String encounterName) {
-    log.debug("DAO: encounter= {}", encounterName);
+  public List<Monster> getMonsters(Long encounterId) {
+    log.debug("DAO: getting monsters for encounter ID ={}", encounterId);
     
-    String sql = ""
-        + "SELECT * "
-        + "FROM encounters "
-        + "WHERE encounter_name = :encounter_name";
-    Map<String, Object> params = new HashMap<>();
-    params.put("encounter_name", encounterName);
-    return jdbcTemplate.query(sql, params, new RowMapper<>() {
-      
-      @Override
-      public Encounter mapRow(ResultSet rs, int rowNum) throws SQLException {
-//        return Encounter.builder()
-//            .characters(null)
-//            .build();
-        return null;
-      }});
-  }
-
-  @Override
-  public List<Monster> displayMonstersOfType(CreatureType type) {
-    log.debug("DAO: monster type= {}", type);
-    
-    String sql = ""
-        + "SELECT * "
-        + "FROM monsters "
-        + "WHERE monster_type = :monster_type";
+    String sql = "SELECT * " +
+          "FROM monsters m INNER JOIN encounter_monster em " 
+        + "USING monster_id "
+        + "WHERE em.encounter_id = :encounter_id";
     
     Map<String, Object> params = new HashMap<>();
-    params.put("monster_type", type);
+    params.put("encounter_id", encounterId);
+    
     return jdbcTemplate.query(sql, params, new RowMapper<>() {
       
-      @Override
       public Monster mapRow(ResultSet rs, int rowNum) throws SQLException {
         return Monster.builder()
             .monsterId(rs.getLong("monster_id"))
@@ -91,38 +81,34 @@ public class DefaultEncounterGetDao implements EncounterGetDao {
             .build();
       }});
   }
-  
+
   @Override
-  public List<Character> displayPlayerCharacters(String firstName, String lastName) {
-    log.debug("DAO: characters from player {} {}", firstName, lastName);
+  public List<Character> getPlayerCharacters(Long encounterId) {
+    log.debug("DAO: getting characters for encounter ID ={}", encounterId);
     
-    String sql = ""
-        + "SELECT * "
-        + "FROM charcter_table INNER JOIN player "
-        + "WHERE player.player_id = character_table.player_id "
-        + "AND player.first_name = :first_name "
-        + "AND player.last_name = :last_name";
+    String sql = "SELECT * " +
+          "FROM character_table ct INNER JOIN encounter_character ec "
+        + "USING character_id "
+        + "WHERE ec.encounter_id = :encounter_id";
     
     Map<String, Object> params = new HashMap<>();
-    params.put("first_name", firstName);
-    params.put("last_name", lastName);
+    params.put("encounter_id", encounterId.toString());
+    
     return jdbcTemplate.query(sql, params, new RowMapper<>() {
       
-      @Override
       public Character mapRow(ResultSet rs, int rowNum) throws SQLException {
         return Character.builder()
+            .characterId(rs.getLong("character_id"))
             .characterName(rs.getString("name"))
-            .type(CreatureType.valueOf(rs.getString("type")))
+            .playerId(rs.getLong("player_id"))
+            .type(CreatureType.HUMANOID)
             .level(rs.getInt("level"))
             .armorClass(rs.getInt("armor_class"))
             .hp(rs.getInt("hit_points"))
             .build();
       }});
   }
-
-  @Override
-  public List<Encounter> displayEncounters() {
-    
-    return null;
+  
+  
+  
   }
-}

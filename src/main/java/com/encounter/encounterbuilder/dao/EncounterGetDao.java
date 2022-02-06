@@ -8,14 +8,10 @@ import com.encounter.encounterbuilder.entity.Monster;
 
 public interface EncounterGetDao {
 
-  List<Encounter> displayEncounter(long encounterPk);
+  List<Encounter> getEncounter(String encounterName);
   
-  List<Encounter> displayEncounters();
+  List<Monster> getMonsters(Long encounterId);
 
-  List<Encounter> displayEncounter(String encounterName);
-  
-  List<Monster> displayMonstersOfType(CreatureType type);
-
-  List<Character> displayPlayerCharacters(String firstName, String lastName);
-  
+  List<Character> getPlayerCharacters(Long encounterId);
+ 
 }

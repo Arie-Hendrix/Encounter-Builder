@@ -6,6 +6,7 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 import com.encounter.encounterbuilder.entity.Encounter;
 import com.encounter.encounterbuilder.entity.Monster;
+import com.encounter.encounterbuilder.entity.Character;
 
 public interface EncounterPutUpdateDao {
 
@@ -13,8 +14,8 @@ public interface EncounterPutUpdateDao {
 
   String fetchEncounterName(String encounterName);
 
-  List<Monster> fetchMonsters(List<String> monsters);
+  List<Monster> fetchMonsters(List<Monster> monsters);
 
-  List<Character> fetchCharacters(List<String> characters);
+  List<Character> fetchCharacters(List<Character> characters);
 
 }

@@ -16,40 +16,19 @@ public class DefaultEncounterGetService implements EncounterGetService{
   
   @Autowired
   private EncounterGetDao encounterGetDao;
-  
-//  @Override
-//  public Encounter fetchEncounter(long encounterPk) {
-//    
-//    return null;
-//  }
 
   @Transactional(readOnly = true)
   @Override
   public List<Encounter> fetchEncounter(String encounterName) {
-    log.info("fetchEncounter called with encounterName = {}", encounterName);
+log.info("The fetchEncounter method was called with name={}", encounterName);
     
-    List<Encounter> encounter = encounterGetDao.displayEncounter(encounterName);
-    if(encounter.isEmpty()) {
-      String msg = String.format("No encounters found with the name:", encounterName);
+    List<Encounter> encounters = encounterGetDao.getEncounter(encounterName);
+    if(encounters.isEmpty()) {
+      String msg = String.format("No encounters found with name =%s", encounterName);
       throw new NoSuchElementException(msg);
     }
     
-    Collections.sort(encounter);
-    return encounter;
+    Collections.sort(encounters);
+    return encounters;
   }
-
-  @Override
-  public List<Encounter> fetchEncounters() {
-      log.info("fetchEncounters called, displaying all encounters");
-      
-      List<Encounter> encounters = encounterGetDao.displayEncounters();
-      if(encounters.isEmpty()) {
-        String msg = String.format("No encounters found");
-        throw new NoSuchElementException(msg);
-      }
-      
-      Collections.sort(encounters);
-      return encounters;
-  }
-
 }
