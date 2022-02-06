@@ -1,13 +1,16 @@
 package com.encounter.encounterbuilder.dao;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import com.encounter.encounterbuilder.entity.Character;
@@ -29,7 +32,6 @@ public class DefaultEncounterGetDao implements EncounterGetDao {
   public List<Encounter> getEncounter(String encounterName) {
     log.debug("DAO: encounter name ={}", encounterName);
     
-    Encounter encounter = new Encounter();
     String sql = "SELECT * " +
         "FROM encounter " +
         "WHERE encounter_name = :encounter_name";
@@ -37,21 +39,26 @@ public class DefaultEncounterGetDao implements EncounterGetDao {
     Map<String, Object> params = new HashMap<>();
     params.put("encounter_name", encounterName.toString());
     
-   jdbcTemplate.query(sql, params, new RowMapper<>() {
+    List<Encounter> encounters = new LinkedList<>();
+    Encounter encounter = jdbcTemplate.query(sql, params, new ResultSetExtractor<Encounter>() {
       
-      public Encounter mapRow(ResultSet rs, int rowNum) throws SQLException {
+      public Encounter extractData(ResultSet rs) throws SQLException, DataAccessException {
+       if(rs.next()) {
         return Encounter.builder()
-            .encounterName(rs.getString("encounter_name"))
             .encounterPK(rs.getLong("encounter_id"))
+            .encounterName(rs.getString("encounter_name"))
             .build();
+       }
+       return null;
       }});
-       
-     encounter.setMonsters(getMonsters(encounter.getEncounterPK()));
-     encounter.setCharacters(getPlayerCharacters(encounter.getEncounterPK()));
+
+      encounter.setMonsters(getMonsters((encounter).getEncounterPK()));
+      encounter.setCharacters(getPlayerCharacters((encounter).getEncounterPK()));
+      encounters.add(encounter);
     //   getMonsters(encounter.getEncounterPK());
     //   getPlayerCharacters(encounter.getEncounterPK());
    
-     return (List<Encounter>) encounter;
+     return encounters;
     }
   
   
@@ -60,10 +67,16 @@ public class DefaultEncounterGetDao implements EncounterGetDao {
   public List<Monster> getMonsters(Long encounterId) {
     log.debug("DAO: getting monsters for encounter ID ={}", encounterId);
     
-    String sql = "SELECT * " +
-          "FROM monsters m INNER JOIN encounter_monster em " 
-        + "USING monster_id "
-        + "WHERE em.encounter_id = :encounter_id";
+//    String sql = "SELECT * " +
+//          "FROM monsters m INNER JOIN encounter_monster em " 
+//        + "USING monster_id "
+//        + "WHERE em.encounter_id = :encounter_id";
+      String sql = "SELECT * FROM monster m "
+          + "INNER JOIN encounter_monster em "
+          + "WHERE m.monster_id = em.monster_id "
+          + "AND em.encounter_id = :encounter_id";
+        
+    
     
     Map<String, Object> params = new HashMap<>();
     params.put("encounter_id", encounterId);
@@ -87,9 +100,10 @@ public class DefaultEncounterGetDao implements EncounterGetDao {
     log.debug("DAO: getting characters for encounter ID ={}", encounterId);
     
     String sql = "SELECT * " +
-          "FROM character_table ct INNER JOIN encounter_character ec "
-        + "USING character_id "
-        + "WHERE ec.encounter_id = :encounter_id";
+          "FROM character_table ct "
+        + "INNER JOIN encounter_character ec "
+        + "WHERE ct.character_id = ec.character_id "
+        + "AND ec.encounter_id = :encounter_id";
     
     Map<String, Object> params = new HashMap<>();
     params.put("encounter_id", encounterId.toString());
