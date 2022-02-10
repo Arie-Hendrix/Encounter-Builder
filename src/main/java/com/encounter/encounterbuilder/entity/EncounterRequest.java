@@ -10,8 +10,11 @@ import lombok.Data;
 @Data
 public class EncounterRequest {
   
-  private List<Monster> monsters;
-  private List<Character> characters;
+  private List<@NotNull Monster> monsters;
+  private List<@NotNull Character> characters;
+  @NotNull
+  @Length(max = 60)
+  @Pattern(regexp = "[A-Z0-9_]*")
   private String encounterName;  
   
 }

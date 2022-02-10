@@ -6,7 +6,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import com.encounter.encounterbuilder.entity.CreatureType;
 import com.encounter.encounterbuilder.entity.Encounter;
+import com.encounter.encounterbuilder.entity.Monster;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -34,16 +36,14 @@ public interface EncounterGetController {
               content = @Content(mediaType = "application/json"))
       },
       parameters = {
-          @Parameter(name = "id", allowEmptyValue = true,
-              required = false, description = "Number of the encounter"),
+          //@Parameter(name = "id", allowEmptyValue = true,
+          //    required = false, description = "Number of the encounter"),
           @Parameter(name = "name", allowEmptyValue = true,
               required = false, description = "Name of the encounter")
       })
   
   @GetMapping
   @ResponseStatus(code = HttpStatus.OK)
-  List<Encounter> fetchEncounters(String name);
-  
-  // List<Encounter> fetchEncounters();
-
+  Encounter fetchEncounters(String name);
+  List<Monster> fetchMonstersOfType(CreatureType type);
 }

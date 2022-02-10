@@ -8,14 +8,10 @@ import com.encounter.encounterbuilder.entity.Encounter;
 import com.encounter.encounterbuilder.entity.Monster;
 import com.encounter.encounterbuilder.entity.Character;
 
-public interface EncounterPutUpdateDao {
+public interface EncounterPostDao {
 
   Encounter saveEncounter(List<Character> characters, List<Monster> monsters, String encounterName);
-
-  String fetchEncounterName(String encounterName);
-
   List<Monster> fetchMonsters(List<Monster> monsters);
-
   List<Character> fetchCharacters(List<Character> characters);
 
 }

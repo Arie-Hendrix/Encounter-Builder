@@ -440,3 +440,8 @@ insert into character_table (player_id, name, type, level, armor_class, hit_poin
 -- insert into character_table (name, type, level, armor_class, hit_points) values ('', 'HUMANOID', '', '', '');
 -- insert into character_table (name, type, level, armor_class, hit_points) values ('', 'HUMANOID', '', '', '');
 -- insert into character_table (name, type, level, armor_class, hit_points) values ('', 'HUMANOID', '', '', '');
+
+
+-- Testing Encounters
+insert into encounter (encounter_name) values ('Test Encounter');
+insert into encounter (encounter_name) values ('Test 2');

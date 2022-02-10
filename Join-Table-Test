@@ -6,6 +6,12 @@
 -- select * from encounter_character ec ;
 -- select * from encounter e ;
 
-select * from monster m inner join encounter_monster em where m.monster_id = em.monster_id and em.encounter_id = '1';
+-- select * from monster m inner join encounter_monster em where m.monster_id = em.monster_id and em.encounter_id = '1';
 
-select * from character_table ct inner join encounter_character ec where ct.character_id = ec.character_id and ec.encounter_id = '1';
+-- select * from character_table ct inner join encounter_character ec where ct.character_id = ec.character_id and ec.encounter_id = '1';
+
+-- select * from monster m where type = 'DRAGON' order by m.name;
+
+-- insert into encounter (encounter_name) values ('Test 2');
+
+-- select * from encounter;
