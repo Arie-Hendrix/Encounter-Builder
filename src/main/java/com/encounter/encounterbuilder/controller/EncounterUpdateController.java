@@ -19,7 +19,7 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
 
-@Validated
+// @Validated
 @RequestMapping("/update")
 @OpenAPIDefinition(info = @Info(title = "Encounter Builder"), 
 servers = {@Server(url = "http://localhost:8080", description = "Local Server")})
@@ -47,13 +47,13 @@ public interface EncounterUpdateController {
           @Parameter(name = "name", allowEmptyValue = false,
               required = true, description = "Name of the encounter to update"),
           @Parameter(name = "newName", allowEmptyValue = false,
-              required = false, description = "New name for the encounter")
+              required = true, description = "New name for the encounter")
       }
      )
   
   @PutMapping("/{name}")
   @ResponseStatus(code = HttpStatus.CREATED)
-  @Valid
+  // @Valid
   @RequestBody
-  void updateEncounter(@PathVariable String name, @RequestParam String newName);
+  Encounter updateEncounter(@PathVariable String name, @RequestParam String newName);
 }

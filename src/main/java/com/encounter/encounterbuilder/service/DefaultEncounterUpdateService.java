@@ -15,9 +15,9 @@ public class DefaultEncounterUpdateService implements EncounterUpdateService {
   private EncounterUpdateDao updateDao;
 
   @Override
-  public void updateEncounter(String name, String newName) {
+  public Encounter updateEncounter(String name, String newName) {
     log.debug("Service: changing encounter from {} to {}", name, newName);
-    updateDao.updateEncounter(name, newName);
+    return updateDao.updateEncounter(name, newName);
   }
 
 }

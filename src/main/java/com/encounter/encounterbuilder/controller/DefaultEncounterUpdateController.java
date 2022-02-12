@@ -15,9 +15,9 @@ public class DefaultEncounterUpdateController implements EncounterUpdateControll
   private EncounterUpdateService updateService;
   
   @Override
-  public void updateEncounter(@Valid String name, @Valid String newName) {
+  public Encounter updateEncounter(@Valid String name, @Valid String newName) {
     log.debug("Controller: updateEncouter called: {}", name);
-    updateService.updateEncounter(name, newName);
+    return updateService.updateEncounter(name, newName);
   }
 
 }

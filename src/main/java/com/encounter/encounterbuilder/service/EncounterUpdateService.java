@@ -4,6 +4,6 @@ import com.encounter.encounterbuilder.entity.Encounter;
 
 public interface EncounterUpdateService {
   
-  void updateEncounter (String name, String newName);
+  Encounter updateEncounter (String name, String newName);
 
 }
