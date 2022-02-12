@@ -4,11 +4,32 @@
 -- insert into encounter_character (encounter_id, character_id) values ('1', '1');
 -- select * from encounter_monster em ;
 -- select * from encounter_character ec ;
--- select * from encounter e ;
+ select * from encounter e ;
 
--- select * from monster m inner join encounter_monster em where m.monster_id = em.monster_id and em.encounter_id = '1';
 
--- select * from character_table ct inner join encounter_character ec where ct.character_id = ec.character_id and ec.encounter_id = '1';
+insert into encounter (encounter_name) values ('Test 5');
+
+ -- select * from character_table ct 
+ -- inner join encounter_character ec using (character_id)
+ -- inner join encounter_monster em using (monster_id)
+ -- where m.monster_id = em.monster_id and em.encounter_id = '4' and
+ -- ct.character_id = ec.character_id;
+
+
+ select * from encounter_character ec ;
+ select * from encounter_monster em ;
+ 
+	select e.encounter_name, ct.name, m.name from encounter e 
+	inner join encounter_character ec using (encounter_id)
+	inner join encounter_monster em using (encounter_id)
+	inner join character_table ct on ct.character_id = ec.character_id
+	inner join monster m on m.monster_id = em.monster_id where e.encounter_id = '5';
+
+
+
+
+ 
+-- select * from character_table ct inner join encounter_character ec where ct.character_id = ec.character_id and ec.encounter_id = '4';
 
 -- select * from monster m where type = 'DRAGON' order by m.name;
 

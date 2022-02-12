@@ -10,8 +10,8 @@ import com.encounter.encounterbuilder.entity.Character;
 
 public interface EncounterPostDao {
 
+  //String fetchName (String encounterName);
   Encounter saveEncounter(List<Character> characters, List<Monster> monsters, String encounterName);
-  List<Monster> fetchMonsters(List<Monster> monsters);
-  List<Character> fetchCharacters(List<Character> characters);
-
+  List<Monster> fetchMonsters(List<Long> monsters);
+  List<Character> fetchCharacters(List<Long> characters);
 }

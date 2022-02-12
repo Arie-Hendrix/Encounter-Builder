@@ -30,6 +30,7 @@ public class DefaultEncounterPostDao implements EncounterPostDao {
   @Override
   public Encounter saveEncounter(List<Character> characters, List<Monster> monsters,
       String encounterName) {
+    log.debug("DAO: saveEncounter called");
     SqlParams params = generateEncounterInsertSql(encounterName);
     
     KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -66,7 +67,7 @@ public class DefaultEncounterPostDao implements EncounterPostDao {
   private SqlParams generateMonsterInsertSql(Monster monster, Long encounterID) {
     SqlParams params = new SqlParams();
     params.sql = ""
-        + "INSERT INTO encounter_monster em "
+        + "INSERT INTO encounter_monster "
         + "(encounter_id, monster_id) "
         + "VALUES (:encounter_id, :monster_id)";
     
@@ -85,7 +86,7 @@ public class DefaultEncounterPostDao implements EncounterPostDao {
   private SqlParams generateCharacterInsertSql(Character character, Long encounterID) {
     SqlParams params = new SqlParams();
     params.sql = ""
-        + "INSERT INTO encounter_character ec "
+        + "INSERT INTO encounter_character "
         + "(encounter_id, character_id) "
         + "VALUES (:encounter_id, :character_id)";
     
@@ -95,14 +96,14 @@ public class DefaultEncounterPostDao implements EncounterPostDao {
   }
 
   @Override
-  public List<Monster> fetchMonsters(List<Monster> monsters) {
+  public List<Monster> fetchMonsters(List<Long> monsters) {
     if (monsters.isEmpty()) {
       return new LinkedList<>();
     }
     Map<String, Object> params = new HashMap<>();
     
     String sql = "SELECT * FROM "
-               + "monster m WHERE "
+               + "monster WHERE "
                + "monster_id IN(";
     
     for (int index = 0; index < monsters.size(); index++) {
@@ -130,18 +131,18 @@ public class DefaultEncounterPostDao implements EncounterPostDao {
   }
 
   @Override
-  public List<Character> fetchCharacters(List<Character> characters) {
+  public List<Character> fetchCharacters(List<Long> characters) {
     if (characters.isEmpty()) {
       return new LinkedList<>();
     }
     Map<String, Object> params = new HashMap<>();
     
     String sql = "SELECT * FROM "
-               + "monster m WHERE "
-               + "monster_id IN(";
+               + "character_table WHERE "
+               + "character_id IN(";
     
     for (int index = 0; index < characters.size(); index++) {
-      String key = "monster_" + index;
+      String key = "character_" + index;
       sql += ":" + key + ", ";
       params.put(key, characters.get(index));
     }

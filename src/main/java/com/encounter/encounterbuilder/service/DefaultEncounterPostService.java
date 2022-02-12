@@ -8,35 +8,37 @@ import com.encounter.encounterbuilder.dao.EncounterPostDao;
 import com.encounter.encounterbuilder.entity.Encounter;
 import com.encounter.encounterbuilder.entity.EncounterRequest;
 import com.encounter.encounterbuilder.entity.Monster;
+import lombok.extern.slf4j.Slf4j;
 import com.encounter.encounterbuilder.entity.Character;
 
 @Service
+@Slf4j
 public class DefaultEncounterPostService implements EncounterPostService {
 
   @Autowired
-  private EncounterPostDao encounterPutDao;
+  private EncounterPostDao encounterPostDao;
 
   @Override
   public Encounter createEncounter(EncounterRequest request) {
-    
+    log.debug("SERVICE: createEncounter method called");
+    String name = getEncounterName(request);
     List<Character> characters = getCharacters(request);
     List<Monster> monsters = getMonsters(request);
-    String name = getEncounterName(request);
     // Encounter encounter = getEncounter(request);
     
-    return encounterPutDao.saveEncounter(characters, monsters, name);
+    return encounterPostDao.saveEncounter(characters, monsters, name);
   }
 
   private String getEncounterName(EncounterRequest request) {
-    //return encounterPutDao.
-    return null;
+    return request.getEncounterName();
+    //return null;
   }
 
   private List<Monster> getMonsters(EncounterRequest request) {
-   return encounterPutDao.fetchMonsters(request.getMonsters());
+   return encounterPostDao.fetchMonsters(request.getMonsters());
   }
 
   private List<Character> getCharacters(EncounterRequest request) {
-    return encounterPutDao.fetchCharacters(request.getCharacters());
+    return encounterPostDao.fetchCharacters(request.getCharacters());
   }
 }

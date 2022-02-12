@@ -41,11 +41,11 @@ public interface EncounterPostController {
          @ApiResponse(responseCode = "500", 
              description = "An unexpected error has occurred",
              content = @Content(mediaType = "application/json"))
-     },
-     parameters = {
-         @Parameter(name = "Name", allowEmptyValue = false, required = true, 
-             description = "Enter a name for the new encounter")
      }
+//     parameters = {
+//         @Parameter(name = "name", allowEmptyValue = false, required = true, 
+//             description = "Enter a name for the new encounter")
+//     }
     )
 
  @PostMapping

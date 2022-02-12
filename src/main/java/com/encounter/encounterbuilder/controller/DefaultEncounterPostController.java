@@ -1,6 +1,6 @@
 package com.encounter.encounterbuilder.controller;
 
-import javax.validation.Valid;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import com.encounter.encounterbuilder.entity.Encounter;
@@ -17,7 +17,7 @@ public class DefaultEncounterPostController implements EncounterPostController {
   
   @Override
   public Encounter createEncounter(EncounterRequest request) {
-    log.info("Encounter = {}", request);
+    log.debug("createEncounter called");
    return postService.createEncounter(request);
   }
 
