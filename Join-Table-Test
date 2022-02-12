@@ -16,6 +16,8 @@ insert into encounter (encounter_name) values ('Test 5');
  -- ct.character_id = ec.character_id;
 
 
+update encounter set encounter.encounter_name = 'Changed' where encounter.encounter_name = 'New Test';
+
  select * from encounter_character ec ;
  select * from encounter_monster em ;
  

@@ -3,9 +3,10 @@ package com.encounter.encounterbuilder.controller;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import com.encounter.encounterbuilder.entity.Encounter;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -50,7 +51,9 @@ public interface EncounterUpdateController {
       }
      )
   
-  @PatchMapping("/{name}")
+  @PutMapping("/{name}")
   @ResponseStatus(code = HttpStatus.CREATED)
-  Encounter updateEncounter(@Valid @RequestBody String newName, @PathVariable String name);
+  @Valid
+  @RequestBody
+  void updateEncounter(@PathVariable String name, @RequestParam String newName);
 }
