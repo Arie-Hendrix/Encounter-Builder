@@ -19,19 +19,13 @@ public class DefaultEncounterPostService implements EncounterPostService {
   private EncounterPostDao encounterPostDao;
 
   @Override
-  public Encounter createEncounter(EncounterRequest request) {
+  public Encounter createEncounter(EncounterRequest request, String name) {
     log.debug("SERVICE: createEncounter method called");
-    String name = getEncounterName(request);
     List<Character> characters = getCharacters(request);
     List<Monster> monsters = getMonsters(request);
     // Encounter encounter = getEncounter(request);
     
     return encounterPostDao.saveEncounter(characters, monsters, name);
-  }
-
-  private String getEncounterName(EncounterRequest request) {
-    return request.getEncounterName();
-    //return null;
   }
 
   private List<Monster> getMonsters(EncounterRequest request) {

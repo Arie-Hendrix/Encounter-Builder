@@ -16,9 +16,9 @@ public class DefaultEncounterPostController implements EncounterPostController {
   private EncounterPostService postService;
   
   @Override
-  public Encounter createEncounter(EncounterRequest request) {
+  public Encounter createEncounter(EncounterRequest request, String name) {
     log.debug("createEncounter called");
-   return postService.createEncounter(request);
+   return postService.createEncounter(request, name);
   }
 
 }

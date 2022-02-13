@@ -5,6 +5,6 @@ import com.encounter.encounterbuilder.entity.EncounterRequest;
 
 public interface EncounterPostService {
 
-  Encounter createEncounter(EncounterRequest request);
+  Encounter createEncounter(EncounterRequest request, String name);
 
 }

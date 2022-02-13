@@ -41,7 +41,7 @@ create table character_table (
 
 create table encounter (
 	encounter_id int unsigned not null auto_increment,
-	encounter_name varchar(60) not null,
+	encounter_name varchar(60) not null unique,
 	primary key (encounter_id)
 );
 

@@ -6,6 +6,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import com.encounter.encounterbuilder.entity.Encounter;
 import com.encounter.encounterbuilder.entity.EncounterRequest;
@@ -41,16 +42,16 @@ public interface EncounterPostController {
          @ApiResponse(responseCode = "500", 
              description = "An unexpected error has occurred",
              content = @Content(mediaType = "application/json"))
+     },
+     parameters = {
+         @Parameter(name = "name", allowEmptyValue = false, required = true, 
+             description = "Enter a name for the new encounter")
      }
-//     parameters = {
-//         @Parameter(name = "name", allowEmptyValue = false, required = true, 
-//             description = "Enter a name for the new encounter")
-//     }
     )
 
- @PostMapping
+ @PostMapping("/{name}")
  @ResponseStatus(code = HttpStatus.CREATED)
- Encounter createEncounter(@Valid @RequestBody EncounterRequest request);
+ Encounter createEncounter(@Valid @RequestBody EncounterRequest request,@RequestParam String name);
 
  // @formatter:on
 
