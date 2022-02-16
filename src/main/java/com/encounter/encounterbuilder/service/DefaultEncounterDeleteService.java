@@ -14,7 +14,7 @@ public class DefaultEncounterDeleteService implements EncounterDeleteService {
   
   @Override
   public void deleteEncounter(String name) {
-    log.info("Sevice: deleteEcnounter called for: " + name);
+    log.info("Service: deleteEncounter called for: " + name);
     deleteDao.deleteEcnounter(name);    
   }
 }

@@ -23,10 +23,10 @@ servers = {@Server(url = "http://localhost:8080", description = "Local Server")}
 public interface EncounterDeleteController {
   @Operation(
       summary = "Deletes the encounter",
-      description = "Deletes the specified encounter number/name",
+      description = "Deletes the specified encounter",
       responses = {
-          @ApiResponse(responseCode = "200", 
-              description = "The encounter list was successfully deleted", 
+          @ApiResponse(responseCode = "202", 
+              description = "The encounter was successfully deleted", 
               content = @Content(mediaType = "application/json", schema = @Schema(implementation = Encounter.class))),
           @ApiResponse(responseCode = "400", 
               description = "The request parameters are invalid", 

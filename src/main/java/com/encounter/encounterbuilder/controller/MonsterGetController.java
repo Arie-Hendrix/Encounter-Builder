@@ -24,7 +24,7 @@ public interface MonsterGetController {
       responses = {
           @ApiResponse(responseCode = "200", 
               description = "The monster list was returned sucessfully", 
-              content = @Content(mediaType = "application/json", schema = @Schema(implementation = Encounter.class))),
+              content = @Content(mediaType = "application/json", schema = @Schema(implementation = Monster.class))),
           @ApiResponse(responseCode = "400", 
               description = "The request parameters are invalid", 
                content = @Content(mediaType = "application/json")),
@@ -35,13 +35,6 @@ public interface MonsterGetController {
               description = "An unexpected error has occurred",
               content = @Content(mediaType = "application/json"))
       }
-      //,
-//      parameters = {
-//          @Parameter(name = "id", allowEmptyValue = true,
-//              required = false, description = "Number of the monster"),
-//          @Parameter(name = "name", allowEmptyValue = true,
-//              required = false, description = "Name of the monster")
-//      }
       )
   
   @GetMapping

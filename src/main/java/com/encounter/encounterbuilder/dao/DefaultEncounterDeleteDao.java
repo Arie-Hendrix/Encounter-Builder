@@ -2,6 +2,7 @@ package com.encounter.encounterbuilder.dao;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -23,7 +24,14 @@ public class DefaultEncounterDeleteDao implements EncounterDeleteDao {
     Map<String, Object> params = new HashMap<>();
     
     params.put("encounter_name", name);
-    jdbcTemplate.update(sql, params);
+    
+    int check = jdbcTemplate.update(sql, params);
+    if (check != 0) {
+      
+    }else {
+      throw new NoSuchElementException("There was no encounter with that name");
+    }
+      
   }
 
 }

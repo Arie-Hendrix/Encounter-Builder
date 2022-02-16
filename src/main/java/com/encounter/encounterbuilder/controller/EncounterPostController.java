@@ -31,7 +31,7 @@ public interface EncounterPostController {
      description = "Creates a new encounter with the options supplied",
      responses = {
          @ApiResponse(responseCode = "201", 
-             description = "The created encounter was returned", 
+             description = "The encounter was created", 
              content = @Content(mediaType = "application/json", schema = @Schema(implementation = Encounter.class))),
          @ApiResponse(responseCode = "400", 
              description = "The request parameters are invalid", 

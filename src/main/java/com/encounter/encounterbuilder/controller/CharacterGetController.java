@@ -23,7 +23,7 @@ public interface CharacterGetController {
       responses = {
           @ApiResponse(responseCode = "200", 
               description = "The character list was returned sucessfully", 
-              content = @Content(mediaType = "application/json", schema = @Schema(implementation = Encounter.class))),
+              content = @Content(mediaType = "application/json", schema = @Schema(implementation = Character.class))),
           @ApiResponse(responseCode = "400", 
               description = "The request parameters are invalid", 
                content = @Content(mediaType = "application/json")),
@@ -34,13 +34,6 @@ public interface CharacterGetController {
               description = "An unexpected error has occurred",
               content = @Content(mediaType = "application/json"))
       }
-//      ,
-//      parameters = {
-//          @Parameter(name = "id", allowEmptyValue = true,
-//              required = false, description = "Number of the character"),
-//          @Parameter(name = "name", allowEmptyValue = true,
-//              required = false, description = "Name of the character")
-//      }
       )
   
   @GetMapping

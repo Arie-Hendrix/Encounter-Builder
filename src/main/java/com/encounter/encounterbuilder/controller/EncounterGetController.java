@@ -23,7 +23,7 @@ public interface EncounterGetController {
       description = "Returns the specified encounter number/name",
       responses = {
           @ApiResponse(responseCode = "200", 
-              description = "The encounter list was returned successfully", 
+              description = "The encounter was returned successfully", 
               content = @Content(mediaType = "application/json", schema = @Schema(implementation = Encounter.class))),
           @ApiResponse(responseCode = "400", 
               description = "The request parameters are invalid", 
